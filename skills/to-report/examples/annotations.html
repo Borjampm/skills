@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<!--
+  to-report EXAMPLES / ANNOTATIONS — the prose-adjacent blocks: callouts, status
+  lists, badges, fields, code, and verbatim specimens. Copy an idiom, swap the
+  content, keep the classes. Linked to the bundled stylesheet one level up.
+-->
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PDS-RPT-ANN — Annotation Examples</title>
+  <link rel="stylesheet" href="../styles.css">
+  <style>
+    /* Multi-line code with comment + one load-bearing highlight token */
+    .codeblock { margin: var(--space-2) 0; border: 1px solid var(--color-rule); background: var(--color-paper-soft); }
+    .codeblock pre {
+      margin: 0; padding: var(--space-2) var(--space-3);
+      font-family: var(--font-mono); font-size: var(--text-2xs); line-height: 1.55;
+      overflow-x: auto; white-space: pre; color: var(--color-ink); tab-size: 2;
+    }
+    .codeblock figcaption {
+      border-top: 1px solid var(--color-rule); padding: 4px 10px;
+      font-family: var(--font-mono); font-size: var(--text-2xs);
+      text-transform: uppercase; letter-spacing: 0.06em; color: var(--color-ink-muted);
+    }
+    .cm { color: var(--color-ink-muted); }                 /* comment */
+    .hl { color: var(--color-signal); font-weight: 600; }  /* one signal token */
+    @media (max-width: 720px) { .grid-2, .grid-3, .grid-2-1 { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <div class="page">
+
+    <header class="doc-head">
+      <div>
+        <div class="doc-system"><span class="signal">&#9679;</span> Personal Design System &nbsp;·&nbsp; to-report &nbsp;·&nbsp; Examples / Annotations</div>
+        <h1 class="doc-name">PDS <span class="sep">/</span> RPT <span class="sep">/</span> Annotations</h1>
+        <p class="doc-purpose">The prose-adjacent blocks: callouts in four tones, a status list, status badges, fields, a code block with one signal token, and a verbatim payload specimen.</p>
+      </div>
+      <dl class="titleblock">
+        <dt>Doc</dt>    <dd>PDS-RPT-ANN</dd>
+        <dt>Rev</dt>    <dd>1.0</dd>
+        <dt>Issued</dt> <dd>2026-06-21</dd>
+        <dt>Drawn</dt>  <dd>BMP</dd>
+        <dt>Sheet</dt>  <dd>1 of 1</dd>
+      </dl>
+    </header>
+
+    <div class="metric-strip">
+      <div class="metric"><span class="val">05</span><span class="lbl">Idioms</span></div>
+      <div class="metric"><span class="val">04</span><span class="lbl">Callout tones</span></div>
+      <div class="metric"><span class="val">.codeblock</span><span class="lbl">Helper</span></div>
+    </div>
+
+    <div class="section-bar">
+      <span class="sid">§ 1.0</span>
+      <span class="sname">Annotations &amp; Blocks</span>
+      <span class="sref">SHT 1 / P. 1</span>
+    </div>
+
+    <div class="grid-2">
+      <!-- 1.1 Callouts -->
+      <div class="panel">
+        <span class="panel-label"><span class="num">1.1</span>Callouts</span>
+        <div class="panel-body" style="display:grid;gap:var(--space-2);">
+          <div class="callout"><p><span class="label">Note &mdash;</span>Default callout for a load-bearing decision or rationale.</p></div>
+          <div class="callout info"><p><span class="label">Scope &mdash;</span>Neutral aside; what is and isn't covered.</p></div>
+          <div class="callout warn"><p><span class="label">Caution &mdash;</span>A risk, caveat, or sharp edge to watch.</p></div>
+          <div class="callout ok"><p><span class="label">Resolved &mdash;</span>A question settled in this conversation.</p></div>
+        </div>
+      </div>
+
+      <!-- 1.2 Status list + badges -->
+      <div class="panel">
+        <span class="panel-label"><span class="num">1.2</span>Status &amp; Badges</span>
+        <div class="panel-body">
+          <ul class="status-list">
+            <li><span class="status-glyph status-ok">&#9679;</span><span class="status-label">Decided</span><span class="status-desc">choice locked</span></li>
+            <li><span class="status-glyph status-warn">&#9650;</span><span class="status-label">Leaning</span><span class="status-desc">tentative, needs check</span></li>
+            <li><span class="status-glyph status-down">&#9632;</span><span class="status-label">Blocked</span><span class="status-desc">open question</span></li>
+            <li><span class="status-glyph status-off">&#9675;</span><span class="status-label">Parked</span><span class="status-desc">out of scope for now</span></li>
+          </ul>
+          <p style="margin:var(--space-3) 0 0;">
+            <span class="badge ok">Chosen</span>
+            <span class="badge warn">Risk</span>
+            <span class="badge down">Drop</span>
+            <span class="badge muted">Later</span>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 1.3 Fields -->
+    <div class="panel">
+      <span class="panel-label"><span class="num">1.3</span>Fields</span>
+      <div class="panel-body">
+        <div class="grid-3">
+          <div class="field"><span class="field-label">Decision</span><span class="field-value">Drizzle ORM</span></div>
+          <div class="field"><span class="field-label">Owner</span><span class="field-value">BMP</span></div>
+          <div class="field"><span class="field-label">Status</span><span class="field-value">LOCKED</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <!-- 1.4 Code block -->
+      <div class="panel">
+        <span class="panel-label"><span class="num">1.4</span>Code Block</span>
+        <div class="panel-body">
+          <figure class="codeblock">
+<pre><span class="cm">// one load-bearing token in signal</span>
+const q = db.select()
+  .from(<span class="hl">ledgerLine</span>)
+  .where(eq(ledgerLine.entryId, id));</pre>
+            <figcaption>db/queries.ts &middot; drizzle</figcaption>
+          </figure>
+        </div>
+      </div>
+
+      <!-- 1.5 Specimen payload -->
+      <div class="panel">
+        <span class="panel-label"><span class="num">1.5</span>Specimen Payload</span>
+        <div class="panel-body">
+          <figure class="figure" style="border:1px solid var(--color-rule);">
+            <div class="frame" style="background:var(--color-paper);background-image:none;padding:var(--space-3);">
+<pre style="margin:0;font-family:var(--font-mono);font-size:var(--text-sm);line-height:1.6;color:var(--color-ink);white-space:pre-wrap;">{
+  "entry": "JE-1042",
+  "lines": 2,
+  "balanced": true
+}</pre>
+            </div>
+            <figcaption><span class="label">Fig. 1.5</span><span>Verbatim payload, rendered as a monospace specimen.</span></figcaption>
+          </figure>
+        </div>
+      </div>
+    </div>
+
+    <footer class="doc-foot">
+      <span>PDS-RPT-ANN &nbsp;·&nbsp; REV 1.0</span>
+      <span class="center">to-report &nbsp;/&nbsp; EXAMPLES / ANNOTATIONS</span>
+      <span class="right">SHT 1 / 1</span>
+    </footer>
+
+  </div>
+</body>
+</html>

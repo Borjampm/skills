@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<!--
+  to-report SCAFFOLD — copy this file, then fill every «PLACEHOLDER».
+  Delete the example rows/panels you don't use; clone the ones you need.
+  Rules that the scaffold can't enforce for you (from DESIGN.md):
+    · Every section, panel, figure, table is numbered. The number is visible and mono.
+    · Mono carries data (IDs, dates, versions, counts, tokens); sans carries prose.
+    · Show, don't explain — reach for a table/figure before a paragraph.
+    · Signal red < ~6 times on the page. Hairlines, not shadows. No rounded corners.
+  If saving OUTSIDE experiments/, replace the <link> below with an inlined
+  <style> copy of the design system's styles.css so the file stands alone.
+-->
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>«DOC-ID» — «Report Title»</title>
+  <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+  <div class="page">
+
+    <!-- ── DOC HEAD ──────────────────────────────────────────── -->
+    <header class="doc-head">
+      <div>
+        <div class="doc-system"><span class="signal">&#9679;</span> «Project / System» &nbsp;·&nbsp; Research Report</div>
+        <h1 class="doc-name">«PROJ» <span class="sep">/</span> «NNN» <span class="sep">/</span> «Short Name»</h1>
+        <p class="doc-purpose">«One or two sentences: what was researched and what this report records.»</p>
+      </div>
+
+      <dl class="titleblock">
+        <dt>Doc</dt>    <dd>«PROJ-RPT-NNN»</dd>
+        <dt>Rev</dt>    <dd>1.0</dd>
+        <dt>Issued</dt> <dd>«YYYY-MM-DD»</dd>
+        <dt>Drawn</dt>  <dd>«XXX»</dd>
+        <dt>Sheet</dt>  <dd>1 of 1</dd>
+      </dl>
+    </header>
+
+    <!-- ── METRIC STRIP — the report's headline numbers ──────── -->
+    <div class="metric-strip">
+      <div class="metric"><span class="val">«00»</span><span class="lbl">«Decisions»</span></div>
+      <div class="metric"><span class="val">«00»</span><span class="lbl">«Options»</span></div>
+      <div class="metric"><span class="val">«00»</span><span class="lbl">«Open»</span></div>
+    </div>
+
+    <!-- ════════════════════════════════════════════════════════
+         §1.0 — example: a COMPARISON rendered as a table
+         ════════════════════════════════════════════════════════ -->
+    <div class="section-bar">
+      <span class="sid">§ 1.0</span>
+      <span class="sname">«Section Name»</span>
+      <span class="sref">SHT 1 / P. 1</span>
+    </div>
+
+    <div class="panel">
+      <span class="panel-label"><span class="num">1.1</span>«Panel Name»</span>
+      <div class="panel-body">
+        <table class="data-table">
+          <thead>
+            <tr><th>«Option»</th><th>«Dimension»</th><th class="num-col">«Metric»</th><th>«Verdict»</th></tr>
+          </thead>
+          <tbody>
+            <tr><td class="mono-col">«opt-a»</td><td>«…»</td><td class="num-col">«00»</td><td>«…»</td></tr>
+            <tr><td class="mono-col">«opt-b»</td><td>«…»</td><td class="num-col">«00»</td><td>«…»</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ════════════════════════════════════════════════════════
+         §2.0 — example: a DECISION + its rationale (callout = why)
+         ════════════════════════════════════════════════════════ -->
+    <div class="section-bar">
+      <span class="sid">§ 2.0</span>
+      <span class="sname">«Decision»</span>
+      <span class="sref">SHT 1 / P. 1</span>
+    </div>
+
+    <div class="grid-2">
+      <div class="panel">
+        <span class="panel-label"><span class="num">2.1</span>What we chose</span>
+        <div class="panel-body">
+          <ul class="status-list">
+            <li><span class="status-glyph status-ok">&#9679;</span><span class="status-label">«Chosen»</span><span class="status-desc">«the decision»</span></li>
+            <li><span class="status-glyph status-off">&#9675;</span><span class="status-label">«Rejected»</span><span class="status-desc">«why not»</span></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="panel">
+        <span class="panel-label"><span class="num">2.2</span>Rationale</span>
+        <div class="panel-body">
+          <div class="callout">
+            <p><span class="label">Note —</span>«The reasoning that data can't carry: intent, tradeoff, nuance.»</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ════════════════════════════════════════════════════════
+         §3.0 — example: a FLOW / RELATIONSHIP rendered as a figure
+         Idiom: 1px ink strokes, signal-red numbered balloons,
+         mono labels, optional dimension line. Clone boxes as needed.
+         ════════════════════════════════════════════════════════ -->
+    <div class="section-bar">
+      <span class="sid">§ 3.0</span>
+      <span class="sname">«Architecture / Flow»</span>
+      <span class="sref">SHT 1 / P. 1</span>
+    </div>
+
+    <div class="panel">
+      <span class="panel-label"><span class="num">3.1</span>«Figure Name»</span>
+      <div class="panel-body" style="padding:0;">
+        <figure class="figure" style="border:none;">
+          <div class="frame">
+            <svg viewBox="0 0 720 220" xmlns="http://www.w3.org/2000/svg" width="100%" style="display:block">
+              <defs>
+                <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+                  <path d="M0,0 L0,6 L9,3 z" fill="#1a1a1a"/>
+                </marker>
+              </defs>
+              <g fill="none" stroke="#1a1a1a" stroke-width="1.25" font-family="'IBM Plex Mono', monospace" font-size="11">
+                <!-- numbered callout balloon -->
+                <circle cx="100" cy="50" r="11" fill="#fc3d21" stroke="none"/>
+                <text x="100" y="54" text-anchor="middle" fill="#fff" stroke="none" font-weight="600">1</text>
+
+                <rect x="40" y="90" width="120" height="60"/>
+                <text x="100" y="125" text-anchor="middle" fill="#1a1a1a" stroke="none" font-weight="500">«STAGE A»</text>
+                <line x1="160" y1="120" x2="295" y2="120" marker-end="url(#arrow)"/>
+
+                <rect x="300" y="90" width="120" height="60"/>
+                <text x="360" y="125" text-anchor="middle" fill="#1a1a1a" stroke="none" font-weight="500">«STAGE B»</text>
+                <line x1="420" y1="120" x2="555" y2="120" marker-end="url(#arrow)"/>
+
+                <rect x="560" y="90" width="120" height="60"/>
+                <text x="620" y="125" text-anchor="middle" fill="#1a1a1a" stroke="none" font-weight="500">«STAGE C»</text>
+
+                <!-- dimension line (optional) -->
+                <g stroke="#6b6b6b" stroke-width="0.75">
+                  <line x1="40" y1="180" x2="680" y2="180"/>
+                  <line x1="40" y1="174" x2="40"  y2="186"/>
+                  <line x1="680" y1="174" x2="680" y2="186"/>
+                </g>
+                <text x="360" y="202" text-anchor="middle" fill="#6b6b6b" stroke="none" font-size="10">«END TO END»</text>
+              </g>
+            </svg>
+          </div>
+          <figcaption>
+            <span class="label">Fig. 3.1</span>
+            <span>«Caption — what the figure shows; reference callouts by (1)(2)(3).»</span>
+          </figcaption>
+        </figure>
+      </div>
+    </div>
+
+    <!-- ════════════════════════════════════════════════════════
+         §4.0 — example: OPEN QUESTIONS / discrete values as fields
+         ════════════════════════════════════════════════════════ -->
+    <div class="section-bar">
+      <span class="sid">§ 4.0</span>
+      <span class="sname">Open Questions</span>
+      <span class="sref">SHT 1 / P. 1</span>
+    </div>
+
+    <div class="panel">
+      <span class="panel-label"><span class="num">4.1</span>Unresolved</span>
+      <div class="panel-body">
+        <div class="grid-3">
+          <div class="field"><span class="field-label">«Question»</span><span class="field-value">«status / next step»</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── DOC FOOT ─────────────────────────────────────────── -->
+    <footer class="doc-foot">
+      <span>«PROJ-RPT-NNN» &nbsp;·&nbsp; REV 1.0</span>
+      <span class="center"><a href="../index.html">&larr; INDEX</a></span>
+      <span class="right">SHT 1 / 1</span>
+    </footer>
+
+  </div>
+</body>
+</html>

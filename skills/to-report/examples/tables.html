@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<!--
+  to-report EXAMPLES / TABLES — copy an idiom, swap the data, keep the classes.
+  Linked to the bundled stylesheet one level up.
+-->
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PDS-RPT-TBL — Table Examples</title>
+  <link rel="stylesheet" href="../styles.css">
+  <style>
+    .pk { color: var(--color-signal); font-weight: 700; }
+    .fk { color: var(--color-signal); }
+    .totrow td { border-top: var(--rule-ink); font-weight: 700; }
+    @media (max-width: 720px) { .grid-2, .grid-3, .grid-2-1 { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <div class="page">
+
+    <header class="doc-head">
+      <div>
+        <div class="doc-system"><span class="signal">&#9679;</span> Personal Design System &nbsp;·&nbsp; to-report &nbsp;·&nbsp; Examples / Tables</div>
+        <h1 class="doc-name">PDS <span class="sep">/</span> RPT <span class="sep">/</span> Tables</h1>
+        <p class="doc-purpose">Copy-ready table idioms: a decision matrix with badge verdicts, a weighted scorecard with a totals row, and a schema table with PK / FK keys.</p>
+      </div>
+      <dl class="titleblock">
+        <dt>Doc</dt>    <dd>PDS-RPT-TBL</dd>
+        <dt>Rev</dt>    <dd>1.0</dd>
+        <dt>Issued</dt> <dd>2026-06-21</dd>
+        <dt>Drawn</dt>  <dd>BMP</dd>
+        <dt>Sheet</dt>  <dd>1 of 1</dd>
+      </dl>
+    </header>
+
+    <div class="metric-strip">
+      <div class="metric"><span class="val">03</span><span class="lbl">Idioms</span></div>
+      <div class="metric"><span class="val">.pk</span><span class="lbl">Helper</span></div>
+      <div class="metric"><span class="val">.totrow</span><span class="lbl">Helper</span></div>
+    </div>
+
+    <div class="section-bar">
+      <span class="sid">§ 1.0</span>
+      <span class="sname">Tables</span>
+      <span class="sref">SHT 1 / P. 1</span>
+    </div>
+
+    <!-- 1.1 Decision / comparison matrix -->
+    <div class="panel">
+      <span class="panel-label"><span class="num">1.1</span>Decision Matrix</span>
+      <div class="panel-body">
+        <table class="data-table">
+          <thead>
+            <tr><th>Option</th><th>Type-safe</th><th>Bundle</th><th>DX</th><th class="num-col">Stars</th><th>Verdict</th></tr>
+          </thead>
+          <tbody>
+            <tr><td class="mono-col">drizzle</td><td>&#10003;</td><td>&#10003; small</td><td>&#10003;</td><td class="num-col">22.1k</td><td><span class="badge ok">Chosen</span></td></tr>
+            <tr><td class="mono-col">prisma</td><td>&#10003;</td><td>&#10007; large</td><td>&#10003;</td><td class="num-col">38.4k</td><td><span class="badge muted">Heavy</span></td></tr>
+            <tr><td class="mono-col">typeorm</td><td>&#10003;</td><td>&#10007; large</td><td>&#10007;</td><td class="num-col">33.8k</td><td><span class="badge warn">Legacy</span></td></tr>
+            <tr><td class="mono-col">knex</td><td>&#10007;</td><td>&#10003; small</td><td>&#10007;</td><td class="num-col">19.0k</td><td><span class="badge down">Drop</span></td></tr>
+          </tbody>
+        </table>
+        <p style="margin-top:var(--space-2);font-size:var(--text-xs);color:var(--color-ink-muted);">Winner carries the <code>badge ok</code>; rejected rows carry a muted/warn/down badge so the verdict reads at a glance.</p>
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <!-- 1.2 Weighted scorecard with totals -->
+      <div class="panel">
+        <span class="panel-label"><span class="num">1.2</span>Weighted Scorecard</span>
+        <div class="panel-body">
+          <table class="data-table">
+            <thead>
+              <tr><th>Criterion</th><th class="num-col">Wt</th><th class="num-col">A</th><th class="num-col">B</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Performance</td><td class="num-col">0.4</td><td class="num-col">8</td><td class="num-col">6</td></tr>
+              <tr><td>Ergonomics</td><td class="num-col">0.3</td><td class="num-col">7</td><td class="num-col">9</td></tr>
+              <tr><td>Maturity</td><td class="num-col">0.3</td><td class="num-col">6</td><td class="num-col">8</td></tr>
+              <tr class="totrow"><td>Weighted</td><td class="num-col">&mdash;</td><td class="num-col">7.1</td><td class="num-col" style="color:var(--color-signal);">7.5</td></tr>
+            </tbody>
+          </table>
+          <p style="margin-top:var(--space-2);font-size:var(--text-xs);color:var(--color-ink-muted);">The <code>totrow</code> rule + bold marks the decisive line; signal on the winning total.</p>
+        </div>
+      </div>
+
+      <!-- 1.3 Schema / field table with PK·FK -->
+      <div class="panel">
+        <span class="panel-label"><span class="num">1.3</span>Schema Fields</span>
+        <div class="panel-body">
+          <table class="data-table">
+            <thead>
+              <tr><th>Column</th><th>Type</th><th>Key</th></tr>
+            </thead>
+            <tbody>
+              <tr><td class="mono-col">id</td><td class="mono-col">uuid</td><td class="mono-col pk">PK</td></tr>
+              <tr><td class="mono-col">account_id</td><td class="mono-col">uuid</td><td class="mono-col fk">FK</td></tr>
+              <tr><td class="mono-col">amount</td><td class="mono-col">numeric</td><td class="mono-col" style="color:var(--color-ink-muted);">&mdash;</td></tr>
+              <tr><td class="mono-col">posted_at</td><td class="mono-col">timestamptz</td><td class="mono-col" style="color:var(--color-ink-muted);">&mdash;</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <footer class="doc-foot">
+      <span>PDS-RPT-TBL &nbsp;·&nbsp; REV 1.0</span>
+      <span class="center">to-report &nbsp;/&nbsp; EXAMPLES / TABLES</span>
+      <span class="right">SHT 1 / 1</span>
+    </footer>
+
+  </div>
+</body>
+</html>

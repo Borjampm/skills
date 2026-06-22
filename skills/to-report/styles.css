@@ -1,0 +1,581 @@
+/* ────────────────────────────────────────────────────────────────
+   PERSONAL DESIGN SYSTEM — shared stylesheet
+   Engineering-datasheet aesthetic. Warm paper, near-black ink,
+   one signal red. Panelized layout. Mono for all metadata.
+   ──────────────────────────────────────────────────────────────── */
+
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Serif:wght@400;600&display=swap');
+
+:root {
+  /* —— Color ———————————————————————————————————————————————— */
+  --color-paper:       #f5f3ed;
+  --color-paper-soft:  #ebe8de;
+  --color-ink:         #1a1a1a;
+  --color-ink-muted:   #6b6b6b;
+  --color-rule:        #c8c5bc;
+  --color-rule-soft:   #ddd9cf;
+  --color-grid:        #e3e0d4;
+  --color-signal:      #fc3d21;   /* NASA worm red */
+  --color-status-ok:   #2d6a4f;
+  --color-status-warn: #c97014;
+
+  /* —— Type ———————————————————————————————————————————————— */
+  --font-sans:  'IBM Plex Sans', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  --font-mono:  'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+  --font-serif: 'IBM Plex Serif', Georgia, serif;
+
+  --text-2xs:     0.6875rem;  /* 11 */
+  --text-xs:      0.75rem;    /* 12 */
+  --text-sm:      0.8125rem;  /* 13 */
+  --text-base:    0.875rem;   /* 14 — body */
+  --text-md:      1rem;       /* 16 */
+  --text-lg:      1.125rem;   /* 18 */
+  --text-xl:      1.375rem;   /* 22 */
+  --text-2xl:     1.75rem;    /* 28 */
+  --text-3xl:     2.25rem;    /* 36 */
+  --text-display: 3rem;       /* 48 */
+
+  /* —— Space ——————————————————————————————————————————————— */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 1rem;
+  --space-4: 1.5rem;
+  --space-5: 2rem;
+  --space-6: 3rem;
+  --space-7: 4.5rem;
+
+  /* —— Other ——————————————————————————————————————————————— */
+  --max-width: 1000px;
+  --rule:        1px solid var(--color-rule);
+  --rule-ink:    1px solid var(--color-ink);
+  --rule-heavy:  2px solid var(--color-ink);
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-sans);
+  font-size: var(--text-base);
+  color: var(--color-ink);
+  background: var(--color-paper);
+  line-height: 1.45;
+  font-feature-settings: 'kern', 'liga';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ────────────────────────────────────────────────────────────────
+   PAGE — wrapper with corner crop marks
+   ──────────────────────────────────────────────────────────────── */
+
+.page {
+  position: relative;
+  max-width: var(--max-width);
+  margin: var(--space-5) auto;
+  padding: var(--space-5) var(--space-5) var(--space-4);
+
+  /* Four L-shaped crop marks at the corners */
+  background-image:
+    linear-gradient(var(--color-ink), var(--color-ink)),
+    linear-gradient(var(--color-ink), var(--color-ink)),
+    linear-gradient(var(--color-ink), var(--color-ink)),
+    linear-gradient(var(--color-ink), var(--color-ink)),
+    linear-gradient(var(--color-ink), var(--color-ink)),
+    linear-gradient(var(--color-ink), var(--color-ink)),
+    linear-gradient(var(--color-ink), var(--color-ink)),
+    linear-gradient(var(--color-ink), var(--color-ink));
+  background-repeat: no-repeat;
+  background-size:
+    16px 1px, 1px 16px,
+    16px 1px, 1px 16px,
+    16px 1px, 1px 16px,
+    16px 1px, 1px 16px;
+  background-position:
+    top    left,  top    left,
+    top    right, top    right,
+    bottom left,  bottom left,
+    bottom right, bottom right;
+}
+
+/* ────────────────────────────────────────────────────────────────
+   BASE TYPOGRAPHY (fallbacks for un-classed elements)
+   ──────────────────────────────────────────────────────────────── */
+
+h1, h2, h3 {
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  margin: var(--space-4) 0 var(--space-2);
+}
+
+h1 { font-size: var(--text-2xl); font-weight: 700; letter-spacing: -0.015em; }
+h2 { font-size: var(--text-xl); }
+h3 { font-size: var(--text-md); }
+
+p { margin: 0 0 var(--space-2); max-width: 60ch; }
+
+a {
+  color: var(--color-ink);
+  text-decoration-color: var(--color-signal);
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 3px;
+}
+
+a:hover { color: var(--color-signal); }
+
+code, .mono {
+  font-family: var(--font-mono);
+  font-size: 0.92em;
+}
+
+code {
+  background: var(--color-paper-soft);
+  padding: 0.1em 0.35em;
+  border-radius: 2px;
+}
+
+hr {
+  border: 0;
+  border-top: var(--rule-ink);
+  margin: var(--space-4) 0;
+}
+
+/* ────────────────────────────────────────────────────────────────
+   DOC HEAD — title block layout
+   ──────────────────────────────────────────────────────────────── */
+
+.doc-head {
+  display: grid;
+  grid-template-columns: 1fr minmax(280px, auto);
+  gap: var(--space-5);
+  align-items: end;
+  margin-bottom: var(--space-4);
+  padding-bottom: var(--space-3);
+  border-bottom: var(--rule-heavy);
+}
+
+.doc-system {
+  font-family: var(--font-mono);
+  font-size: var(--text-2xs);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--color-ink-muted);
+  margin-bottom: var(--space-2);
+}
+
+.doc-system .signal { color: var(--color-signal); font-weight: 600; }
+
+.doc-name {
+  font-family: var(--font-mono);
+  font-size: var(--text-2xl);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  line-height: 1.1;
+  margin: 0 0 var(--space-2);
+}
+
+.doc-name .sep {
+  color: var(--color-ink-muted);
+  font-weight: 400;
+  margin: 0 0.4em;
+}
+
+.doc-purpose {
+  font-size: var(--text-sm);
+  color: var(--color-ink-muted);
+  max-width: 55ch;
+  margin: 0;
+  line-height: 1.45;
+}
+
+/* —— Title block (gridded metadata) ———————————————————————— */
+
+.titleblock {
+  border: var(--rule-ink);
+  font-family: var(--font-mono);
+  font-size: var(--text-2xs);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  margin: 0;
+  background: var(--color-paper);
+}
+
+.titleblock dt,
+.titleblock dd {
+  padding: 5px 12px;
+  border-bottom: 1px solid var(--color-rule-soft);
+  margin: 0;
+  line-height: 1.3;
+}
+
+.titleblock dt {
+  border-right: var(--rule-ink);
+  color: var(--color-ink-muted);
+  font-weight: 500;
+  background: var(--color-paper-soft);
+  min-width: 5ch;
+}
+
+.titleblock dd { font-weight: 600; min-width: 14ch; }
+
+.titleblock dt:nth-last-of-type(1),
+.titleblock dd:nth-last-of-type(1) { border-bottom: none; }
+
+/* ────────────────────────────────────────────────────────────────
+   METRIC STRIP — big numerals row
+   ──────────────────────────────────────────────────────────────── */
+
+.metric-strip {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 1fr;
+  border-top: var(--rule-ink);
+  border-bottom: var(--rule-ink);
+  margin: 0 0 var(--space-4);
+}
+
+.metric {
+  padding: var(--space-2) var(--space-3);
+  border-right: 1px solid var(--color-rule-soft);
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-2);
+}
+
+.metric:last-child { border-right: none; }
+
+.metric .val {
+  font-family: var(--font-mono);
+  font-size: var(--text-xl);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+}
+
+.metric .lbl {
+  font-family: var(--font-mono);
+  font-size: var(--text-2xs);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-ink-muted);
+}
+
+/* ────────────────────────────────────────────────────────────────
+   SECTION BAR — full-width divider with id / name / ref
+   ──────────────────────────────────────────────────────────────── */
+
+.section-bar {
+  display: grid;
+  grid-template-columns: max-content 1fr max-content;
+  align-items: center;
+  gap: var(--space-3);
+  border-top: var(--rule-heavy);
+  border-bottom: var(--rule-ink);
+  padding: 5px 10px;
+  margin: var(--space-5) 0 var(--space-3);
+  font-family: var(--font-mono);
+  font-size: var(--text-2xs);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.section-bar .sid {
+  font-weight: 600;
+  color: var(--color-signal);
+  letter-spacing: 0.04em;
+}
+
+.section-bar .sname {
+  font-weight: 600;
+  color: var(--color-ink);
+}
+
+.section-bar .sref {
+  color: var(--color-ink-muted);
+  font-weight: 500;
+}
+
+/* ────────────────────────────────────────────────────────────────
+   PANEL — bordered content box with corner label
+   ──────────────────────────────────────────────────────────────── */
+
+.panel {
+  position: relative;
+  border: var(--rule-ink);
+  background: var(--color-paper);
+  margin: 12px 0 var(--space-3);
+}
+
+.panel-label {
+  position: absolute;
+  top: -8px;
+  left: 12px;
+  background: var(--color-paper);
+  padding: 0 8px;
+  font-family: var(--font-mono);
+  font-size: var(--text-2xs);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-weight: 600;
+  line-height: 1;
+  color: var(--color-ink);
+}
+
+.panel-label .num {
+  color: var(--color-signal);
+  margin-right: 4px;
+}
+
+.panel-body {
+  padding: var(--space-4) var(--space-3) var(--space-3);
+}
+
+.panel-body > p:first-child { margin-top: 0; }
+.panel-body > *:last-child { margin-bottom: 0; }
+
+/* —— Grid columns ———————————————————————————————————————— */
+
+.grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-3);
+}
+
+.grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-3);
+}
+
+.grid-2-1 {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: var(--space-3);
+}
+
+/* ────────────────────────────────────────────────────────────────
+   DATA TABLE
+   ──────────────────────────────────────────────────────────────── */
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--text-sm);
+  font-variant-numeric: tabular-nums;
+}
+
+.data-table thead th {
+  text-align: left;
+  font-weight: 600;
+  font-size: var(--text-2xs);
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-ink-muted);
+  border-bottom: var(--rule-ink);
+  padding: 6px 10px 6px 0;
+  white-space: nowrap;
+}
+
+.data-table tbody td {
+  border-bottom: 1px solid var(--color-rule-soft);
+  padding: 6px 10px 6px 0;
+  vertical-align: top;
+}
+
+.data-table tbody tr:last-child td { border-bottom: none; }
+
+.data-table .mono-col {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+}
+
+.data-table .num-col {
+  font-family: var(--font-mono);
+  text-align: right;
+  white-space: nowrap;
+}
+
+.swatch {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border: 1px solid var(--color-rule);
+  vertical-align: -3px;
+}
+
+/* ────────────────────────────────────────────────────────────────
+   FIELD — label-above-value with hairline
+   ──────────────────────────────────────────────────────────────── */
+
+.field {
+  font-family: var(--font-mono);
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.field-label {
+  font-size: var(--text-2xs);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-ink-muted);
+  font-weight: 500;
+}
+
+.field-value {
+  font-size: var(--text-sm);
+  font-weight: 600;
+  border-bottom: var(--rule-ink);
+  padding-bottom: 2px;
+}
+
+/* ────────────────────────────────────────────────────────────────
+   CALLOUT
+   ──────────────────────────────────────────────────────────────── */
+
+.callout {
+  border-left: 3px solid var(--color-signal);
+  padding: var(--space-2) var(--space-3);
+  background: var(--color-paper-soft);
+  font-size: var(--text-sm);
+}
+
+.callout .label {
+  font-family: var(--font-mono);
+  font-size: var(--text-2xs);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-signal);
+  font-weight: 700;
+  margin-right: var(--space-2);
+}
+
+.callout p { margin: 0; max-width: none; }
+
+.callout.warn { border-left-color: var(--color-status-warn); background: #fbf3ea; }
+.callout.warn .label { color: var(--color-status-warn); }
+
+.callout.info { border-left-color: var(--color-ink-muted); background: var(--color-paper-soft); }
+.callout.info .label { color: var(--color-ink-muted); }
+
+.callout.ok { border-left-color: var(--color-status-ok); background: #eef4ef; }
+.callout.ok .label { color: var(--color-status-ok); }
+
+/* ────────────────────────────────────────────────────────────────
+   BADGE — inline status pill
+   ──────────────────────────────────────────────────────────────── */
+
+.badge {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: var(--text-2xs);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-weight: 600;
+  padding: 1px 7px;
+  border: 1px solid var(--color-ink);
+  background: var(--color-paper);
+  line-height: 1.3;
+  white-space: nowrap;
+}
+.badge.ok    { color: var(--color-status-ok);   border-color: var(--color-status-ok); }
+.badge.warn  { color: var(--color-status-warn); border-color: var(--color-status-warn); }
+.badge.down  { color: var(--color-signal);      border-color: var(--color-signal); }
+.badge.muted { color: var(--color-ink-muted);   border-color: var(--color-rule); }
+
+/* ────────────────────────────────────────────────────────────────
+   STATUS INDICATORS
+   ──────────────────────────────────────────────────────────────── */
+
+.status-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  display: grid;
+  gap: var(--space-1);
+}
+
+.status-list li {
+  display: grid;
+  grid-template-columns: 1.5ch 12ch 1fr;
+  gap: var(--space-3);
+  align-items: center;
+}
+
+.status-glyph { font-size: 1.05em; line-height: 1; }
+.status-ok    { color: var(--color-status-ok); }
+.status-warn  { color: var(--color-status-warn); }
+.status-down  { color: var(--color-signal); }
+.status-off   { color: var(--color-ink-muted); }
+
+.status-label {
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-size: var(--text-2xs);
+  font-weight: 700;
+}
+
+.status-desc {
+  font-family: var(--font-sans);
+  color: var(--color-ink-muted);
+  font-size: var(--text-xs);
+}
+
+/* ────────────────────────────────────────────────────────────────
+   FIGURE — bordered drawing with caption
+   ──────────────────────────────────────────────────────────────── */
+
+.figure {
+  margin: 0;
+  border: var(--rule);
+  background: var(--color-paper);
+}
+
+.figure .frame {
+  padding: var(--space-4);
+  background-image: radial-gradient(var(--color-grid) 1px, transparent 1.2px);
+  background-size: 20px 20px;
+}
+
+.figure figcaption {
+  border-top: var(--rule);
+  padding: 5px 10px;
+  font-family: var(--font-mono);
+  font-size: var(--text-2xs);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-ink-muted);
+  display: flex;
+  gap: var(--space-3);
+}
+
+.figure figcaption .label { color: var(--color-ink); font-weight: 700; }
+
+/* ────────────────────────────────────────────────────────────────
+   DOC FOOTER
+   ──────────────────────────────────────────────────────────────── */
+
+.doc-foot {
+  margin-top: var(--space-5);
+  border-top: var(--rule-heavy);
+  padding-top: var(--space-2);
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  font-family: var(--font-mono);
+  font-size: var(--text-2xs);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-ink-muted);
+}
+
+.doc-foot a { color: inherit; }
+.doc-foot .center { text-align: center; }
+.doc-foot .right  { text-align: right; }

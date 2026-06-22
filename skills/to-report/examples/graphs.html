@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<!--
+  to-report EXAMPLES / GRAPHS — quantitative charts, built by hand from SVG and
+  CSS. There is no chart library; that is the system. Copy an idiom, swap the
+  numbers, keep the idiom. Linked to the bundled stylesheet one level up.
+-->
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PDS-RPT-GRF — Graph Examples</title>
+  <link rel="stylesheet" href="../styles.css">
+  <style>
+    /* Horizontal ranking bars — pure CSS bar chart */
+    .bars { display: flex; flex-direction: column; gap: var(--space-2); font-family: var(--font-mono); }
+    .bar-row { display: grid; grid-template-columns: 13ch 1fr 4ch; gap: var(--space-3); align-items: center; }
+    .bar-label { font-size: var(--text-2xs); text-transform: uppercase; letter-spacing: 0.05em; color: var(--color-ink-muted); }
+    .bar-track { height: 14px; background: var(--color-paper-soft); border: 1px solid var(--color-rule); }
+    .bar-fill { height: 100%; background: var(--color-ink); }
+    .bar-fill.win { background: var(--color-signal); }
+    .bar-val { font-size: var(--text-xs); text-align: right; font-variant-numeric: tabular-nums; font-weight: 600; }
+    @media (max-width: 720px) { .grid-2, .grid-3, .grid-2-1 { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <div class="page">
+
+    <header class="doc-head">
+      <div>
+        <div class="doc-system"><span class="signal">&#9679;</span> Personal Design System &nbsp;·&nbsp; to-report &nbsp;·&nbsp; Examples / Graphs</div>
+        <h1 class="doc-name">PDS <span class="sep">/</span> RPT <span class="sep">/</span> Graphs</h1>
+        <p class="doc-purpose">Quantitative charts in the system's idiom &mdash; ink bars with one signal winner, mono tabular labels, hairline axes. A vertical bar chart and quadrant in SVG; ranking bars in pure CSS; a milestone timeline.</p>
+      </div>
+      <dl class="titleblock">
+        <dt>Doc</dt>    <dd>PDS-RPT-GRF</dd>
+        <dt>Rev</dt>    <dd>1.0</dd>
+        <dt>Issued</dt> <dd>2026-06-21</dd>
+        <dt>Drawn</dt>  <dd>BMP</dd>
+        <dt>Sheet</dt>  <dd>1 of 1</dd>
+      </dl>
+    </header>
+
+    <div class="metric-strip">
+      <div class="metric"><span class="val">04</span><span class="lbl">Idioms</span></div>
+      <div class="metric"><span class="val">SVG</span><span class="lbl">Bar · quad · time</span></div>
+      <div class="metric"><span class="val">CSS</span><span class="lbl">Ranking bars</span></div>
+    </div>
+
+    <div class="section-bar">
+      <span class="sid">§ 1.0</span>
+      <span class="sname">Graphs</span>
+      <span class="sref">SHT 1 / P. 1</span>
+    </div>
+
+    <!-- 1.1 Vertical bar chart (SVG) -->
+    <div class="panel">
+      <span class="panel-label"><span class="num">1.1</span>Bar Chart</span>
+      <div class="panel-body" style="padding:0;">
+        <figure class="figure" style="border:none;margin:0;">
+          <div class="frame">
+            <svg viewBox="0 0 720 300" xmlns="http://www.w3.org/2000/svg" width="100%" style="display:block">
+              <g font-family="'IBM Plex Mono', monospace">
+                <!-- gridlines + y labels -->
+                <g stroke="#c8c5bc" stroke-width="0.75">
+                  <line x1="58" y1="40"  x2="700" y2="40"/>
+                  <line x1="58" y1="145" x2="700" y2="145"/>
+                </g>
+                <g fill="#6b6b6b" font-size="9" text-anchor="end">
+                  <text x="50" y="44">100</text>
+                  <text x="50" y="149">50</text>
+                  <text x="50" y="253">0</text>
+                </g>
+                <!-- axes -->
+                <g stroke="#1a1a1a" stroke-width="1.25">
+                  <line x1="58" y1="40" x2="58" y2="250"/>
+                  <line x1="58" y1="250" x2="700" y2="250"/>
+                </g>
+                <!-- bars (ink, winner in signal) -->
+                <g>
+                  <rect x="92"  y="162" width="64" height="88"  fill="#1a1a1a"/>
+                  <rect x="220" y="107" width="64" height="143" fill="#1a1a1a"/>
+                  <rect x="348" y="59"  width="64" height="191" fill="#fc3d21"/>
+                  <rect x="476" y="134" width="64" height="116" fill="#1a1a1a"/>
+                  <rect x="604" y="187" width="64" height="63"  fill="#1a1a1a"/>
+                </g>
+                <!-- value labels -->
+                <g fill="#1a1a1a" font-size="10" font-weight="600" text-anchor="middle">
+                  <text x="124" y="155">42</text>
+                  <text x="252" y="100">68</text>
+                  <text x="380" y="52" fill="#fc3d21">91</text>
+                  <text x="508" y="127">55</text>
+                  <text x="636" y="180">30</text>
+                </g>
+                <!-- x labels -->
+                <g fill="#6b6b6b" font-size="9" text-anchor="middle">
+                  <text x="124" y="268">v18</text>
+                  <text x="252" y="268">v19</text>
+                  <text x="380" y="268" fill="#1a1a1a" font-weight="600">v20</text>
+                  <text x="508" y="268">v21</text>
+                  <text x="636" y="268">v22</text>
+                </g>
+              </g>
+            </svg>
+          </div>
+          <figcaption>
+            <span class="label">Fig. 1.1</span>
+            <span>Throughput by version (req/s, normalized to 100). Winner drawn in signal red.</span>
+          </figcaption>
+        </figure>
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <!-- 1.2 Horizontal ranking bars (CSS) -->
+      <div class="panel">
+        <span class="panel-label"><span class="num">1.2</span>Ranking Bars</span>
+        <div class="panel-body">
+          <div class="bars">
+            <div class="bar-row"><span class="bar-label">latency p50</span><div class="bar-track"><div class="bar-fill win" style="width:92%"></div></div><span class="bar-val">92</span></div>
+            <div class="bar-row"><span class="bar-label">latency p95</span><div class="bar-track"><div class="bar-fill" style="width:74%"></div></div><span class="bar-val">74</span></div>
+            <div class="bar-row"><span class="bar-label">latency p99</span><div class="bar-track"><div class="bar-fill" style="width:55%"></div></div><span class="bar-val">55</span></div>
+            <div class="bar-row"><span class="bar-label">cold start</span><div class="bar-track"><div class="bar-fill" style="width:31%"></div></div><span class="bar-val">31</span></div>
+          </div>
+          <p style="margin-top:var(--space-3);font-size:var(--text-xs);color:var(--color-ink-muted);">Pure HTML/CSS &mdash; no SVG. Set each <code>bar-fill</code> width to value%; add <code>win</code> for signal.</p>
+        </div>
+      </div>
+
+      <!-- 1.3 Timeline / milestones (SVG) -->
+      <div class="panel">
+        <span class="panel-label"><span class="num">1.3</span>Timeline</span>
+        <div class="panel-body" style="padding:0;">
+          <figure class="figure" style="border:none;margin:0;">
+            <div class="frame">
+              <svg viewBox="0 0 720 150" xmlns="http://www.w3.org/2000/svg" width="100%" style="display:block">
+                <g font-family="'IBM Plex Mono', monospace">
+                  <!-- axis + progress -->
+                  <line x1="60" y1="80" x2="660" y2="80" stroke="#1a1a1a" stroke-width="1.25"/>
+                  <line x1="60" y1="80" x2="280" y2="80" stroke="#fc3d21" stroke-width="2.5"/>
+                  <!-- ticks -->
+                  <g stroke="#1a1a1a" stroke-width="1">
+                    <line x1="80"  y1="73" x2="80"  y2="87"/>
+                    <line x1="280" y1="73" x2="280" y2="87"/>
+                    <line x1="470" y1="73" x2="470" y2="87"/>
+                    <line x1="640" y1="73" x2="640" y2="87"/>
+                  </g>
+                  <circle cx="280" cy="80" r="5" fill="#fc3d21"/>
+                  <!-- dates above -->
+                  <g fill="#6b6b6b" font-size="9" text-anchor="middle">
+                    <text x="80"  y="58">05-01</text>
+                    <text x="280" y="58" fill="#fc3d21" font-weight="600">06-21</text>
+                    <text x="470" y="58">07-15</text>
+                    <text x="640" y="58">08-30</text>
+                  </g>
+                  <!-- phase names below -->
+                  <g fill="#1a1a1a" font-size="9" text-anchor="middle">
+                    <text x="80"  y="105">Spec</text>
+                    <text x="280" y="105" font-weight="600">Build</text>
+                    <text x="470" y="105">Beta</text>
+                    <text x="640" y="105">GA</text>
+                  </g>
+                </g>
+              </svg>
+            </div>
+            <figcaption><span class="label">Fig. 1.3</span><span>Milestone track. Signal segment = elapsed; dot = today.</span></figcaption>
+          </figure>
+        </div>
+      </div>
+    </div>
+
+    <!-- 1.4 2x2 positioning quadrant (SVG) -->
+    <div class="panel">
+      <span class="panel-label"><span class="num">1.4</span>Positioning Quadrant</span>
+      <div class="panel-body" style="padding:0;">
+        <figure class="figure" style="border:none;margin:0;">
+          <div class="frame">
+            <svg viewBox="0 0 520 420" xmlns="http://www.w3.org/2000/svg" width="100%" style="max-width:420px;display:block;margin:0 auto;">
+              <g font-family="'IBM Plex Mono', monospace">
+                <!-- frame -->
+                <rect x="60" y="40" width="380" height="320" fill="none" stroke="#1a1a1a" stroke-width="1.25"/>
+                <!-- midlines -->
+                <g stroke="#6b6b6b" stroke-width="0.75" stroke-dasharray="4 3">
+                  <line x1="250" y1="40" x2="250" y2="360"/>
+                  <line x1="60" y1="200" x2="440" y2="200"/>
+                </g>
+                <!-- quadrant captions -->
+                <g fill="#6b6b6b" font-size="9" letter-spacing="0.5">
+                  <text x="70" y="58">QUICK WINS</text>
+                  <text x="360" y="58">DO FIRST</text>
+                  <text x="70" y="352">AVOID</text>
+                  <text x="372" y="352">PLAN</text>
+                </g>
+                <!-- points -->
+                <g>
+                  <circle cx="155" cy="136" r="5" fill="#1a1a1a"/><text x="163" y="133" font-size="9" fill="#1a1a1a">A</text>
+                  <circle cx="288" cy="232" r="5" fill="#1a1a1a"/><text x="296" y="229" font-size="9" fill="#1a1a1a">B</text>
+                  <circle cx="364" cy="100" r="7" fill="#fc3d21"/><text x="374" y="97" font-size="9" fill="#fc3d21" font-weight="600">C</text>
+                  <circle cx="193" cy="296" r="5" fill="#1a1a1a"/><text x="201" y="293" font-size="9" fill="#1a1a1a">D</text>
+                </g>
+                <!-- axis titles -->
+                <text x="250" y="392" text-anchor="middle" font-size="9" fill="#1a1a1a" letter-spacing="0.5">EFFORT &#8594;</text>
+                <text x="28" y="200" text-anchor="middle" font-size="9" fill="#1a1a1a" letter-spacing="0.5" transform="rotate(-90 28 200)">VALUE &#8594;</text>
+              </g>
+            </svg>
+          </div>
+          <figcaption><span class="label">Fig. 1.4</span><span>Value/effort placement. C (signal) = high value, low effort &mdash; do first.</span></figcaption>
+        </figure>
+      </div>
+    </div>
+
+    <footer class="doc-foot">
+      <span>PDS-RPT-GRF &nbsp;·&nbsp; REV 1.0</span>
+      <span class="center">to-report &nbsp;/&nbsp; EXAMPLES / GRAPHS</span>
+      <span class="right">SHT 1 / 1</span>
+    </footer>
+
+  </div>
+</body>
+</html>
