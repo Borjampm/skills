@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<!--
+  to-slide EXAMPLES / STATUS LISTS — the option/state exhibit and the
+  natural fragment build. ≤ 6 items per sheet. Fragments are for
+  sequences you'd speak item-by-item ("next…"); add class="fragment"
+  per <li>. Glyph colors: status-ok / status-warn / status-down /
+  status-off. Also here: the closing end-list (T-n takeaways, A-n
+  asks) — its rendered home is the TEMPLATE's closing sheet.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PDS-SLD-LST · Examples / Status Lists</title>
+<link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+
+<div class="deck">
+
+  <!-- ── 01 · STATUS LIST as a fragment build — press → to land
+       each item ─────────────────────────────────────────────── -->
+  <section class="slide">
+    <header class="slide-head">
+      <span class="sid">§ 1.0</span>
+      <span class="sname">Status list · fragments</span>
+      <span class="sdoc">PDS-SLD-LST · 01 / 02</span>
+    </header>
+    <p class="lead">Each line lands on a keypress — because you'd speak them one at a time.</p>
+    <div class="gap"></div>
+    <ul class="status-list">
+      <li class="fragment"><span class="status-glyph status-ok">●</span><span class="status-label">Navigation</span><span class="status-desc">Arrow keys, space, click — clamp at both ends.</span></li>
+      <li class="fragment"><span class="status-glyph status-ok">●</span><span class="status-label">Progress</span><span class="status-desc">n / N in the header; bar under the stage.</span></li>
+      <li class="fragment"><span class="status-glyph status-ok">●</span><span class="status-label">Fragments</span><span class="status-desc">This list is the demonstration.</span></li>
+      <li class="fragment"><span class="status-glyph status-warn">●</span><span class="status-label">Speaker notes</span><span class="status-desc">Out of scope — warn glyph marks the caveat.</span></li>
+      <li class="fragment"><span class="status-glyph status-off">●</span><span class="status-label">PDF export</span><span class="status-desc">Ruled out — off glyph marks the rejected state.</span></li>
+    </ul>
+  </section>
+
+  <!-- ── 02 · END LIST — the closing-sheet idiom: takeaways then
+       asks, fragments because the presenter walks them ───────── -->
+  <section class="slide">
+    <header class="slide-head">
+      <span class="sid">§ 2.0</span>
+      <span class="sname">Takeaways &amp; asks</span>
+      <span class="sdoc">PDS-SLD-LST · 02 / 02</span>
+    </header>
+    <p class="lead">End of deck.</p>
+    <div class="gap"></div>
+    <ol class="end-list">
+      <li class="fragment"><span class="idx">T-1</span><span>Takeaways carry the through-line out of the room.</span></li>
+      <li class="fragment"><span class="idx">T-2</span><span>One claim per sheet kept every exhibit honest.</span></li>
+      <li class="fragment"><span class="idx">A-1</span><span>Asks name the decision the audience must act on.</span></li>
+    </ol>
+  </section>
+
+</div>
+
+<div class="progress"><div class="fill" id="progressFill"></div></div>
+
+<script>
+const W = 1280, H = 720;
+const slides = [...document.querySelectorAll('.slide')];
+const fill = document.getElementById('progressFill');
+let cur = 0;
+function fit() { document.documentElement.style.setProperty('--s', Math.min(innerWidth / W, innerHeight / H)); }
+function show(n, fromHash) {
+  cur = Math.max(0, Math.min(slides.length - 1, n));
+  slides.forEach((sl, i) => sl.classList.toggle('active', i === cur));
+  fill.style.width = ((cur + 1) / slides.length * 100) + '%';
+  if (!fromHash) history.replaceState(null, '', '#' + (cur + 1));
+}
+function next() {
+  const pending = slides[cur].querySelectorAll('.fragment:not(.on)');
+  if (pending.length) { pending[0].classList.add('on'); return; }
+  if (cur < slides.length - 1) show(cur + 1);
+}
+function prev() {
+  const shown = slides[cur].querySelectorAll('.fragment.on');
+  if (shown.length) { shown[shown.length - 1].classList.remove('on'); return; }
+  if (cur > 0) { show(cur - 1); slides[cur].querySelectorAll('.fragment').forEach(f => f.classList.add('on')); }
+}
+addEventListener('keydown', e => {
+  if (['ArrowRight', ' ', 'PageDown', 'ArrowDown'].includes(e.key)) { e.preventDefault(); next(); }
+  if (['ArrowLeft', 'PageUp', 'ArrowUp'].includes(e.key))           { e.preventDefault(); prev(); }
+  if (e.key === 'Home') show(0);
+  if (e.key === 'End')  show(slides.length - 1);
+});
+addEventListener('click', e => { (e.clientX < innerWidth / 3) ? prev() : next(); });
+addEventListener('hashchange', () => { const n = parseInt(location.hash.slice(1), 10); if (!isNaN(n)) show(n - 1, true); });
+addEventListener('resize', fit);
+fit();
+const start = parseInt(location.hash.slice(1), 10);
+show(isNaN(start) ? 0 : start - 1, true);
+</script>
+</body>
+</html>

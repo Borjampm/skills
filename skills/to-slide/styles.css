@@ -1,0 +1,325 @@
+/* ────────────────────────────────────────────────────────────────
+   PERSONAL DESIGN SYSTEM — slide stylesheet
+   The engineering-datasheet aesthetic re-set for projection:
+   fixed 1280×720 canvas transform-scaled to the screen, 28px body
+   floor, one header line of furniture, ≤ 2 signal-red per sheet.
+   Tokens copied verbatim from the datasheet styles.css; only the
+   scale is new (--rule-heavy is 3px here — 2px reads thin at
+   distance).
+   ──────────────────────────────────────────────────────────────── */
+
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Serif:wght@400;600&display=swap');
+
+:root {
+  /* —— Color (verbatim from the datasheet system) ——————————— */
+  --color-paper:       #f5f3ed;
+  --color-paper-soft:  #ebe8de;
+  --color-ink:         #1a1a1a;
+  --color-ink-muted:   #6b6b6b;
+  --color-rule:        #c8c5bc;
+  --color-rule-soft:   #ddd9cf;
+  --color-grid:        #e3e0d4;
+  --color-signal:      #fc3d21;   /* NASA worm red */
+  --color-status-ok:   #2d6a4f;
+  --color-status-warn: #c97014;
+
+  --font-sans:  'IBM Plex Sans', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  --font-mono:  'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+  --font-serif: 'IBM Plex Serif', Georgia, serif;
+
+  /* —— Slide-scale type (canvas 1280×720) ——————————————————— */
+  --s-meta:    16px;   /* furniture, labels — datasheet 11px  */
+  --s-small:   20px;   /* table body, captions — was 13px     */
+  --s-body:    28px;   /* slide body floor — was 14px         */
+  --s-lead:    38px;   /* the one-claim statement — was 18px  */
+  --s-title:   56px;   /* sheet titles — was 28px             */
+  --s-display: 96px;   /* title sheet only — was 48px         */
+
+  --rule:       1px solid var(--color-rule);
+  --rule-ink:   1px solid var(--color-ink);
+  --rule-heavy: 3px solid var(--color-ink);
+
+  --s: 1;   /* scale factor, set by the engine on resize */
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0; height: 100%;
+  background: #141414;               /* stage around the sheet */
+  font-family: var(--font-sans);
+  color: var(--color-ink);
+  overflow: hidden;
+}
+
+/* ────────────────────────────────────────────────────────────────
+   ENGINE — fixed 1280×720 canvas, transform-scaled to fit
+   ──────────────────────────────────────────────────────────────── */
+
+.deck {
+  position: absolute; left: 50%; top: 50%;
+  width: 1280px; height: 720px;
+  transform: translate(-50%, -50%) scale(var(--s));
+}
+
+.slide {
+  position: absolute; inset: 0;
+  display: none;
+  flex-direction: column;
+  background: var(--color-paper);
+  padding: 44px 56px 44px;
+}
+.slide.active { display: flex; }
+
+/* fragments — reserved for spoken sequences; evidence lands whole */
+.fragment { visibility: hidden; }
+.fragment.on { visibility: visible; }
+
+/* progress bar — viewport-fixed under the stage, paper-on-dark */
+.progress {
+  position: fixed; left: 0; bottom: 0; height: 4px; width: 100%;
+  background: #2a2a2a;
+}
+.progress .fill {
+  height: 100%; width: 0;
+  background: var(--color-paper);
+  transition: width 120ms linear;
+}
+
+/* ────────────────────────────────────────────────────────────────
+   SLIDE FURNITURE — one header line per content sheet
+   ──────────────────────────────────────────────────────────────── */
+
+.slide-head {
+  display: grid;
+  grid-template-columns: max-content 1fr max-content;
+  gap: 24px; align-items: baseline;
+  font-family: var(--font-mono);
+  font-size: var(--s-meta);
+  text-transform: uppercase; letter-spacing: 0.08em;
+  border-bottom: var(--rule-ink);
+  padding-bottom: 10px; margin-bottom: 34px;
+}
+.slide-head .sid   { color: var(--color-signal); font-weight: 600; }
+.slide-head .sname { font-weight: 600; }
+.slide-head .sdoc  { color: var(--color-ink-muted); font-weight: 500; }
+
+.slide-title {
+  font-family: var(--font-mono);
+  font-size: var(--s-title);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
+  line-height: 1.05;
+  margin: 0 0 28px;
+}
+
+.lead {
+  font-size: var(--s-lead);
+  line-height: 1.3;
+  max-width: 24ch;
+  margin: 0;
+  font-weight: 500;
+}
+.lead strong { font-weight: 700; }
+
+.note {
+  font-size: var(--s-small);
+  color: var(--color-ink-muted);
+  max-width: 52ch;
+  line-height: 1.4;
+}
+
+/* spacer between a lead and its exhibit */
+.gap { height: 40px; }
+
+/* ────────────────────────────────────────────────────────────────
+   TITLE SHEET — the one sheet with the full gridded titleblock
+   ──────────────────────────────────────────────────────────────── */
+
+.title-slide { justify-content: space-between; }
+
+.doc-system {
+  font-family: var(--font-mono);
+  font-size: var(--s-meta);
+  text-transform: uppercase; letter-spacing: 0.14em;
+  color: var(--color-ink-muted);
+}
+.doc-system .signal { color: var(--color-signal); font-weight: 600; }
+
+.doc-name {
+  font-family: var(--font-mono);
+  font-size: var(--s-display);
+  font-weight: 600;
+  text-transform: uppercase;
+  line-height: 1.02; letter-spacing: 0;
+  margin: 0;
+}
+.doc-name .sep { color: var(--color-ink-muted); font-weight: 400; margin: 0 0.25em; }
+
+.doc-purpose {
+  font-size: var(--s-body);
+  color: var(--color-ink-muted);
+  max-width: 44ch; margin: 0; line-height: 1.35;
+}
+
+.titleblock {
+  border: var(--rule-ink);
+  font-family: var(--font-mono);
+  font-size: var(--s-meta);
+  text-transform: uppercase; letter-spacing: 0.05em;
+  display: grid; grid-template-columns: max-content 1fr;
+  margin: 0; background: var(--color-paper);
+  align-self: end; min-width: 420px;
+}
+.titleblock dt, .titleblock dd {
+  padding: 8px 18px;
+  border-bottom: 1px solid var(--color-rule-soft);
+  margin: 0; line-height: 1.3;
+}
+.titleblock dt {
+  border-right: var(--rule-ink);
+  color: var(--color-ink-muted); font-weight: 500;
+  background: var(--color-paper-soft);
+}
+.titleblock dd { font-weight: 600; }
+.titleblock dt:nth-last-of-type(1),
+.titleblock dd:nth-last-of-type(1) { border-bottom: none; }
+
+/* ────────────────────────────────────────────────────────────────
+   INDEX SHEET — § agenda (decks with ~5+ content sheets)
+   ──────────────────────────────────────────────────────────────── */
+
+.agenda { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; }
+.agenda li {
+  display: grid; grid-template-columns: 12ch 1fr max-content;
+  align-items: baseline; gap: 24px;
+  font-family: var(--font-mono);
+  font-size: 34px;
+  padding: 16px 4px;
+  border-bottom: 1px solid var(--color-rule-soft);
+}
+.agenda li:last-child { border-bottom: none; }
+.agenda .sid  { color: var(--color-signal); font-weight: 600; }
+.agenda .aname { font-weight: 600; text-transform: uppercase; letter-spacing: 0.02em; }
+.agenda .aref { font-size: var(--s-meta); color: var(--color-ink-muted); text-transform: uppercase; letter-spacing: 0.08em; }
+
+/* ────────────────────────────────────────────────────────────────
+   DATA TABLE — ≤ 6 rows per sheet
+   ──────────────────────────────────────────────────────────────── */
+
+.data-table {
+  width: 100%; border-collapse: collapse;
+  font-size: var(--s-small);
+  font-variant-numeric: tabular-nums;
+}
+.data-table thead th {
+  text-align: left; font-weight: 600;
+  font-size: var(--s-meta);
+  font-family: var(--font-mono);
+  text-transform: uppercase; letter-spacing: 0.06em;
+  color: var(--color-ink-muted);
+  border-bottom: var(--rule-ink);
+  padding: 10px 18px 10px 0; white-space: nowrap;
+}
+.data-table tbody td {
+  border-bottom: 1px solid var(--color-rule-soft);
+  padding: 12px 18px 12px 0; vertical-align: top;
+}
+.data-table tbody tr:last-child td { border-bottom: none; }
+.data-table .mono-col { font-family: var(--font-mono); font-size: var(--s-small); }
+.data-table .num-col  { font-family: var(--font-mono); text-align: right; white-space: nowrap; }
+.data-table .pick td  { font-weight: 600; }
+.data-table .pick .mono-col { color: var(--color-signal); }   /* the sheet's one emphasis */
+
+.tbl-caption {
+  border-top: var(--rule);
+  margin-top: 4px; padding-top: 8px;
+  font-family: var(--font-mono);
+  font-size: var(--s-meta);
+  text-transform: uppercase; letter-spacing: 0.06em;
+  color: var(--color-ink-muted);
+  display: flex; gap: 24px;
+}
+.tbl-caption .label { color: var(--color-ink); font-weight: 700; }
+
+/* ────────────────────────────────────────────────────────────────
+   FIGURE — dotted-grid frame, mono caption; fills the sheet
+   ──────────────────────────────────────────────────────────────── */
+
+.figure {
+  margin: 0; border: var(--rule); background: var(--color-paper);
+  display: flex; flex-direction: column; flex: 1; min-height: 0;
+}
+.figure .frame {
+  flex: 1; min-height: 0;
+  padding: 20px;
+  background-image: radial-gradient(var(--color-grid) 1.5px, transparent 1.8px);
+  background-size: 28px 28px;
+  display: flex; align-items: center; justify-content: center;
+}
+.figure svg { width: 100%; height: 100%; }
+.figure figcaption {
+  border-top: var(--rule);
+  padding: 8px 16px;
+  font-family: var(--font-mono);
+  font-size: var(--s-meta);
+  text-transform: uppercase; letter-spacing: 0.06em;
+  color: var(--color-ink-muted);
+  display: flex; gap: 24px;
+}
+.figure figcaption .label { color: var(--color-ink); font-weight: 700; }
+
+/* ────────────────────────────────────────────────────────────────
+   STATUS LIST — ≤ 6 items; the natural fragment build
+   ──────────────────────────────────────────────────────────────── */
+
+.status-list {
+  list-style: none; padding: 0; margin: 0;
+  font-family: var(--font-mono);
+  display: grid; gap: 18px;
+}
+.status-list li {
+  display: grid; grid-template-columns: 2ch 16ch 1fr;
+  gap: 32px; align-items: baseline;
+  font-size: var(--s-body);
+}
+.status-glyph { line-height: 1; }
+.status-ok   { color: var(--color-status-ok); }
+.status-warn { color: var(--color-status-warn); }
+.status-down { color: var(--color-signal); }
+.status-off  { color: var(--color-ink-muted); }
+.status-label { text-transform: uppercase; letter-spacing: 0.05em; font-weight: 700; font-size: 24px; }
+.status-desc  { font-family: var(--font-sans); color: var(--color-ink-muted); font-size: var(--s-small); }
+
+/* ────────────────────────────────────────────────────────────────
+   PANELS — grid-2 pair is the ceiling; three reads as a datasheet
+   ──────────────────────────────────────────────────────────────── */
+
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; align-items: start; }
+
+.panel { position: relative; border: var(--rule-ink); background: var(--color-paper); margin-top: 14px; }
+.panel-label {
+  position: absolute; top: -11px; left: 18px;
+  background: var(--color-paper);
+  padding: 0 12px;
+  font-family: var(--font-mono);
+  font-size: var(--s-meta);
+  text-transform: uppercase; letter-spacing: 0.06em;
+  font-weight: 600; line-height: 1;
+}
+.panel-label .num { color: var(--color-signal); margin-right: 6px; }
+.panel-body { padding: 30px 24px 24px; font-size: var(--s-small); line-height: 1.4; }
+.panel-body p { margin: 0 0 12px; }
+.panel-body p:last-child { margin-bottom: 0; }
+
+/* ────────────────────────────────────────────────────────────────
+   CLOSING SHEET — takeaways (T-n) + asks (A-n)
+   ──────────────────────────────────────────────────────────────── */
+
+.end-list { list-style: none; margin: 0; padding: 0; font-family: var(--font-mono); display: grid; gap: 14px; }
+.end-list li {
+  display: grid; grid-template-columns: 5ch 1fr; gap: 20px;
+  font-size: 26px; align-items: baseline;
+}
+.end-list .idx { color: var(--color-signal); font-weight: 600; }

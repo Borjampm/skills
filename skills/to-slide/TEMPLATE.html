@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<!--
+  to-slide SCAFFOLD — copy this file, then fill every «PLACEHOLDER».
+  Delete the sheets you don't use; clone the content sheet per claim.
+  Rules the scaffold can't enforce for you (from DESIGN.md):
+    · One claim per sheet: a lead + at most ONE exhibit. Two exhibits = two sheets.
+    · Index sheet only when the deck has ~5+ content sheets — delete it otherwise.
+    · Signal red ≤ 2 uses per sheet: the § id plus at most one emphasis.
+    · Fragments only for sequences you'd speak item-by-item; leads, tables,
+      figures and charts always land whole.
+  A saved deck is standalone: replace the <link> below with an inlined
+  <style> copy of the bundled styles.css.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>«PROJ-SLD-NNN» · «Deck Title»</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div class="deck">
+
+  <!-- ── 01 · TITLE — the one sheet with the full titleblock ── -->
+  <section class="slide title-slide">
+    <div>
+      <p class="doc-system">«Project / System» <span class="signal">//</span> «Occasion»</p>
+    </div>
+    <div>
+      <h1 class="doc-name">«Deck»<span class="sep">/</span>«Title»</h1>
+      <p class="doc-purpose">«One or two sentences: the through-line — the sentence the room must take away.»</p>
+    </div>
+    <dl class="titleblock">
+      <dt>Doc</dt><dd>«PROJ-SLD-NNN»</dd>
+      <dt>Rev</dt><dd>A</dd>
+      <dt>Date</dt><dd>«YYYY-MM-DD»</dd>
+      <dt>Owner</dt><dd>«XXX»</dd>
+      <dt>Sheet</dt><dd>01 of «NN»</dd>
+    </dl>
+  </section>
+
+  <!-- ── 02 · INDEX — delete this sheet if < ~5 content sheets ── -->
+  <section class="slide">
+    <header class="slide-head">
+      <span class="sid">§ 0.0</span>
+      <span class="sname">Index</span>
+      <span class="sdoc">«PROJ-SLD-NNN» · 02 / «NN»</span>
+    </header>
+    <ol class="agenda">
+      <li><span class="sid">§ 1.0</span><span class="aname">«Section»</span><span class="aref">Sheet 03</span></li>
+      <li><span class="sid">§ 2.0</span><span class="aname">«Section»</span><span class="aref">Sheets 04–05</span></li>
+    </ol>
+  </section>
+
+  <!-- ── CONTENT SHEET — clone once per claim ─────────────────
+       lead = the claim (≤ 24ch); exhibit = its single strongest
+       proof, cribbed from examples/ (tables / figures / charts /
+       status-lists). A full-bleed exhibit may stand alone when it
+       IS the claim — then drop the lead, keep the header. ─────── -->
+  <section class="slide">
+    <header class="slide-head">
+      <span class="sid">§ 1.0</span>
+      <span class="sname">«Section name»</span>
+      <span class="sdoc">«PROJ-SLD-NNN» · 03 / «NN»</span>
+    </header>
+    <p class="lead">«The claim this sheet makes — one sentence, <strong>bolding the load-bearing words</strong>.»</p>
+    <div class="gap"></div>
+    <!-- «EXHIBIT — paste one idiom from examples/ here» -->
+  </section>
+
+  <!-- ── CLOSING — takeaways + asks; with nothing to ask, plain
+       END OF DECK furniture ──────────────────────────────────── -->
+  <section class="slide">
+    <header class="slide-head">
+      <span class="sid">§ «N».0</span>
+      <span class="sname">Takeaways &amp; asks</span>
+      <span class="sdoc">«PROJ-SLD-NNN» · «NN» / «NN»</span>
+    </header>
+    <p class="lead">End of deck.</p>
+    <div class="gap"></div>
+    <ol class="end-list">
+      <li class="fragment"><span class="idx">T-1</span><span>«Key takeaway.»</span></li>
+      <li class="fragment"><span class="idx">T-2</span><span>«Key takeaway.»</span></li>
+      <li class="fragment"><span class="idx">A-1</span><span>«Decision the audience must act on.»</span></li>
+    </ol>
+  </section>
+
+</div>
+
+<div class="progress"><div class="fill" id="progressFill"></div></div>
+
+<script>
+/* ── engine: ~70 lines — scale, nav, fragments, progress, hash ── */
+const W = 1280, H = 720;
+const slides = [...document.querySelectorAll('.slide')];
+const fill = document.getElementById('progressFill');
+let cur = 0;
+
+function fit() {
+  const s = Math.min(innerWidth / W, innerHeight / H);
+  document.documentElement.style.setProperty('--s', s);
+}
+
+function show(n, fromHash) {
+  cur = Math.max(0, Math.min(slides.length - 1, n));
+  slides.forEach((sl, i) => sl.classList.toggle('active', i === cur));
+  fill.style.width = ((cur + 1) / slides.length * 100) + '%';
+  if (!fromHash) history.replaceState(null, '', '#' + (cur + 1));
+}
+
+function next() {
+  const pending = slides[cur].querySelectorAll('.fragment:not(.on)');
+  if (pending.length) { pending[0].classList.add('on'); return; }
+  if (cur < slides.length - 1) show(cur + 1);
+}
+
+function prev() {
+  const shown = slides[cur].querySelectorAll('.fragment.on');
+  if (shown.length) { shown[shown.length - 1].classList.remove('on'); return; }
+  if (cur > 0) {
+    show(cur - 1);
+    // arriving backwards: show all fragments on the previous slide
+    slides[cur].querySelectorAll('.fragment').forEach(f => f.classList.add('on'));
+  }
+}
+
+addEventListener('keydown', e => {
+  if (['ArrowRight', ' ', 'PageDown', 'ArrowDown'].includes(e.key)) { e.preventDefault(); next(); }
+  if (['ArrowLeft', 'PageUp', 'ArrowUp'].includes(e.key))           { e.preventDefault(); prev(); }
+  if (e.key === 'Home') show(0);
+  if (e.key === 'End')  show(slides.length - 1);
+});
+
+addEventListener('click', e => {
+  (e.clientX < innerWidth / 3) ? prev() : next();
+});
+
+addEventListener('hashchange', () => {
+  const n = parseInt(location.hash.slice(1), 10);
+  if (!isNaN(n)) show(n - 1, true);
+});
+
+addEventListener('resize', fit);
+
+fit();
+const start = parseInt(location.hash.slice(1), 10);
+show(isNaN(start) ? 0 : start - 1, true);
+</script>
+</body>
+</html>
